@@ -2,12 +2,61 @@
    MENU RENDERING HELPERS — js/menu.js
    Pure HTML-string builders for menu cards, badges, empty & loading states.
    All values are escaped. DOM wiring lives in js/app.js.
+
+   Language: js/app.js calls MenuUI.setLanguage(lang, uiConfig) before
+   rendering. Builders then pick the primary name/description for the active
+   language and show the other language small underneath (e.g. Amharic big,
+   English small).
    ============================================================================= */
 
 (function (global) {
   "use strict";
 
   const MenuUI = {
+
+    /* ----- language ----- */
+
+    lang: "en",
+    S: null, // ui.strings object from the config
+
+    setLanguage(lang, ui) {
+      this.lang = lang === "en" ? "en" : (lang || "en");
+      this.S = (ui && ui.strings) || null;
+    },
+
+    /** Translate a key with {token} replacement: T("addedToast", {name:"ዶሮ ወጥ"}) */
+    T(key, vars) {
+      let str;
+      if (this.S) {
+        const active = this.S[this.lang];
+        if (active && active[key] != null) str = active[key];
+        else {
+          const otherKey = Object.keys(this.S).find((k) => k !== this.lang);
+          const other = otherKey && this.S[otherKey];
+          if (other && other[key] != null) str = other[key];
+        }
+      }
+      if (str == null) str = key; // last resort: show the key, never crash
+      return String(str).replace(/\{(\w+)\}/g, (m, k) =>
+        vars && vars[k] != null ? String(vars[k]) : m);
+    },
+
+    /** Primary name for the active language (falls back gracefully). */
+    nameFor(item) {
+      if (this.lang === "en" && item.nameEn) return item.nameEn;
+      return item.name || item.nameEn || "";
+    },
+    /** The other-language name, or "" when missing/identical. */
+    subNameFor(item) {
+      const a = item.name || "", b = item.nameEn || "";
+      if (!a || !b || a === b) return "";
+      return this.lang === "en" ? a : b;
+    },
+    /** Short description for the active language. */
+    descFor(item) {
+      if (this.lang === "en") return item.descriptionEn || item.description || "";
+      return item.description || item.descriptionEn || "";
+    },
 
     /* ----- utils ----- */
 
@@ -36,10 +85,10 @@
     tagsHtml(item) {
       const tags = [];
       if (item.veg) {
-        tags.push(`<span class="tag tag-veg"><span class="ic">🌿</span>Vegetarian</span>`);
+        tags.push(`<span class="tag tag-veg"><span class="ic" aria-hidden="true">🌿</span>${this.T("veg")}</span>`);
       }
       if (item.spicy) {
-        tags.push(`<span class="tag tag-spicy"><span class="ic">🌶️</span>Spicy</span>`);
+        tags.push(`<span class="tag tag-spicy"><span class="ic" aria-hidden="true">🌶️</span>${this.T("spicy")}</span>`);
       }
       return tags.length ? `<div class="tags">${tags.join("")}</div>` : `<div class="tags"></div>`;
     },
@@ -47,34 +96,43 @@
     /* ----- cards ----- */
 
     /**
-     * One menu item card.
-     * @param item  menu item object
-     * @param qty   current quantity in cart
+     * One menu item card:
+     * photo | name (+ small second language) · price · short description · add.
+     * @param item     menu item object
+     * @param qty      current quantity in cart
      * @param currency data.currency
      */
     cardHtml(item, qty, currency) {
       const e = this.escapeHtml;
       const soldOut = item.available === false;
       const price = this.formatPrice(item.price, currency);
+      const subName = this.subNameFor(item);
+      const desc = this.descFor(item);
+
       const media = `
         <div class="card-media">
-          <img src="${e(item.image)}" alt="${e(item.name)}" loading="lazy">
-          ${item.popular ? `<span class="badge-pop">★ Popular</span>` : ""}
-          ${soldOut ? `<span class="soldout-tag">Sold out</span>` : ""}
+          <img src="${e(item.image)}" alt="${e(this.nameFor(item))}" loading="lazy" decoding="async" width="800" height="436">
+          ${item.popular && !soldOut ? `<span class="badge-pop">★ ${this.T("popular")}</span>` : ""}
+          ${soldOut ? `<span class="soldout-tag">${this.T("soldOut")}</span>` : ""}
         </div>`;
+
       const action = soldOut
         ? ""
         : (qty > 0 ? this.stepperHtml(item.id, qty) : this.addBtnHtml(item));
+
+      const primaryLang = this.lang === "en" ? "en" : "am";
+      const secondaryLang = primaryLang === "en" ? "am" : "en";
 
       return `
       <li class="card ${soldOut ? "is-soldout" : ""}" data-card="${e(item.id)}">
         ${media}
         <div class="card-body">
           <div class="card-title">
-            <h4>${e(item.name)}${item.am ? `<span class="am">${e(item.am)}</span>` : ""}</h4>
+            <h4 lang="${primaryLang}">${e(this.nameFor(item))}</h4>
             <span class="price">${e(price)}</span>
           </div>
-          <p class="card-desc">${e(item.description)}</p>
+          ${subName ? `<p class="card-sub" lang="${secondaryLang}">${e(subName)}</p>` : ""}
+          ${desc ? `<p class="card-desc" lang="${primaryLang}">${e(desc)}</p>` : ""}
           <div class="card-foot">
             ${this.tagsHtml(item)}
             <div class="action-slot">${action}</div>
@@ -83,24 +141,24 @@
       </li>`;
     },
 
-    /** Circular gold "Add" button. */
+    /** Big, thumb-friendly gold "Add" button (≥44px tall on mobile). */
     addBtnHtml(item) {
       const e = this.escapeHtml;
       return `
-      <button class="add-btn" data-action="add" data-id="${e(item.id)}" aria-label="Add ${e(item.name)} to order">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-        Add
+      <button class="add-btn" data-action="add" data-id="${e(item.id)}" aria-label="${e(this.T("addAria", { name: this.nameFor(item) }))}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        <span>${this.T("add")}</span>
       </button>`;
     },
 
-    /** Quantity stepper: − qty + */
+    /** Quantity stepper: − qty + (large tap targets) */
     stepperHtml(id, qty) {
       const e = this.escapeHtml;
       return `
-      <div class="stepper" role="group" aria-label="Quantity">
-        <button data-action="dec" data-id="${e(id)}" aria-label="Decrease quantity">−</button>
+      <div class="stepper" role="group" aria-label="${e(this.T("qtyAria"))}">
+        <button data-action="dec" data-id="${e(id)}" aria-label="${e(this.T("decAria"))}">−</button>
         <span class="qty" aria-live="polite">${qty}</span>
-        <button data-action="inc" data-id="${e(id)}" aria-label="Increase quantity">+</button>
+        <button data-action="inc" data-id="${e(id)}" aria-label="${e(this.T("incAria"))}">+</button>
       </div>`;
     },
 
@@ -110,13 +168,15 @@
       const cards = items
         .map((item) => this.cardHtml(item, cart.qty(item.id), currency))
         .join("");
+      const sub = this.subNameFor(category);
+      const primaryLang = this.lang === "en" ? "en" : "am";
       return `
-      <section class="cat-block reveal" id="cat-${e(category.id)}" aria-label="${e(category.name)}">
+      <section class="cat-block" id="cat-${e(category.id)}" aria-label="${e(this.nameFor(category))}">
         <div class="cat-head">
           <span class="cat-icon" aria-hidden="true">${category.icon || ""}</span>
-          <h3>${e(category.name)}</h3>
-          ${category.am ? `<span class="cat-am am">${e(category.am)}</span>` : ""}
-          <span class="cat-count">${items.length} item${items.length === 1 ? "" : "s"}</span>
+          <h3 lang="${primaryLang}">${e(this.nameFor(category))}</h3>
+          ${sub ? `<span class="cat-am" lang="${this.lang === "en" ? "am" : "en"}">${e(sub)}</span>` : ""}
+          <span class="cat-count">${e(this.T("itemCount", { n: items.length }))}</span>
         </div>
         <ul class="grid">${cards}</ul>
       </section>`;
@@ -146,9 +206,9 @@
       return `
       <div class="empty-state">
         <div class="empty-ic" aria-hidden="true">🔍</div>
-        <h4>No dishes found</h4>
-        <p>Nothing matches “${e(query)}”. Try a different spelling — or browse the full menu.</p>
-        <button class="btn btn-line" data-action="reset-search">Clear search</button>
+        <h4>${this.T("noResultsTitle")}</h4>
+        <p>${e(this.T("noResultsText", { q: query || "…" }))}</p>
+        <button class="btn btn-line" data-action="reset-search">${this.T("clearSearchBtn")}</button>
       </div>`;
     },
 
@@ -156,9 +216,9 @@
       return `
       <div class="cart-empty">
         <div class="empty-ic" aria-hidden="true">🧺</div>
-        <h4>Your mesob is empty</h4>
-        <p>Browse the menu and add a few dishes — everything is made to be shared.</p>
-        <button class="btn btn-gold" data-action="close-cart">Browse the menu</button>
+        <h4>${this.T("emptyCartTitle")}</h4>
+        <p>${this.T("emptyCartText")}</p>
+        <button class="btn btn-gold" data-action="close-cart">${this.T("browseMenuBtn")}</button>
       </div>`;
     },
 
@@ -169,18 +229,18 @@
       const { item, qty, lineTotal } = line;
       return `
       <div class="cart-line" data-line="${e(item.id)}">
-        <div class="cl-media"><img src="${e(item.image)}" alt=""></div>
+        <div class="cl-media"><img src="${e(item.image)}" alt="" loading="lazy" width="60" height="60"></div>
         <div class="cl-body">
           <div class="cl-top">
-            <h5>${e(item.name)}</h5>
+            <h5 lang="${this.lang === "en" ? "en" : "am"}">${e(this.nameFor(item))}</h5>
             <span class="cl-total">${e(this.formatPrice(lineTotal, currency))}</span>
           </div>
-          <span class="cl-sub">${e(this.formatPrice(item.price, currency))} each</span>
+          <span class="cl-sub">${e(this.formatPrice(item.price, currency))}</span>
           <div class="cl-row">
             ${this.stepperHtml(item.id, qty)}
-            <button class="cl-remove" data-action="remove" data-id="${e(item.id)}" aria-label="Remove ${e(item.name)}">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2m2 0v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6"/></svg>
-              Remove
+            <button class="cl-remove" data-action="remove" data-id="${e(item.id)}" aria-label="${e(this.T("removeAria", { name: this.nameFor(item) }))}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2m2 0v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6"/></svg>
+              ${this.T("remove")}
             </button>
           </div>
         </div>
