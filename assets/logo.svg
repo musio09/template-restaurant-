@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Mesob basket emblem">
+  <g fill="none" stroke="#b4812f" stroke-linecap="round" stroke-linejoin="round">
+    <!-- double ring -->
+    <circle cx="32" cy="32" r="29.5" stroke-width="1.4" opacity=".55"/>
+    <circle cx="32" cy="32" r="26"   stroke-width="1"   opacity=".3"/>
+
+    <!-- mesob dome lid -->
+    <path d="M18.5 31C18.5 22.8 24.5 17 32 17s13.5 5.8 13.5 14" stroke-width="2.4"/>
+    <circle cx="32" cy="14.6" r="1.9" fill="#b4812f" stroke="none"/>
+    <path d="M15.5 31h33" stroke-width="2.4"/>
+
+    <!-- basket body with woven stripes -->
+    <path d="M18 31l2.8 15.5h22.4L46 31" stroke-width="2.4"/>
+    <path d="M24.6 31.6 26 45.8M32 31.6v14.2M39.4 31.6 38 45.8" stroke-width="1.8" opacity=".8"/>
+
+    <!-- tibeb diamonds on the band -->
+    <path d="M27.5 38.4l1.6-1.9 1.6 1.9-1.6 1.9z" fill="#b4812f" stroke="none"/>
+    <path d="M33.3 38.4l1.6-1.9 1.6 1.9-1.6 1.9z" fill="#b4812f" stroke="none"/>
+
+    <!-- table line -->
+    <path d="M14.5 53.5h35" stroke-width="2"/>
+    <path d="M22 49.8h20" stroke-width="1.4" opacity=".6"/>
+  </g>
+</svg>

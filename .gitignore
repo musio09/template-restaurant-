@@ -1,0 +1,7 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.log
+
+# (Optional) if you ever add tooling locally
+node_modules/
