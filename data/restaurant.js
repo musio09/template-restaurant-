@@ -147,8 +147,8 @@ const RESTAURANT_DATA = {
     {
       id: "chechebsa",
       category: "breakfast",
-      name: "Chechebsa",
       am: "ጨጨብሳ",
+        name: "Chechebsa",
       description:
         "Torn kita flatbread folded into warm niter kibbeh butter and berbere — the classic way to start an Ethiopian morning.",
       price: 220,
@@ -158,8 +158,8 @@ const RESTAURANT_DATA = {
     {
       id: "fasting-firfir",
       category: "breakfast",
-      name: "Special Fasting Firfir",
-      am: "ስፔሻል ጾም ፍርፍር",
+        am: "ስፔሻል ጾም ፍርፍር",
+      name: "Special Fasting Firfir", 
       description:
         "Shredded injera tossed through rich shiro and berbere sauce, finished with a green chili. Fully fasting-friendly.",
       price: 160,
@@ -169,8 +169,8 @@ const RESTAURANT_DATA = {
     {
       id: "ful",
       category: "breakfast",
-      name: "Ful Medames",
-      am: "ፉል",
+         am: "ፉል",
+      name: "Ful ",
       description:
         "Slow-cooked fava beans mashed with cumin and olive oil, topped with fresh tomato, onion and jalapeño. Served with bread.",
       price: 190,
@@ -182,8 +182,8 @@ const RESTAURANT_DATA = {
     {
       id: "sambusa-beef",
       category: "starters",
+         am: "የስጋ ሳምቡሳ",
       name: "Beef Sambusa",
-      am: "የስጋ ሳምቡሳ",
       description:
         "Two crisp golden triangles filled with spiced minced beef and onion, served with awaze dipping sauce. (2 pcs)",
       price: 90,
@@ -193,8 +193,8 @@ const RESTAURANT_DATA = {
     {
       id: "sambusa-lentil",
       category: "starters",
-      name: "Lentil Sambusa",
       am: "የምስር ሳምቡሳ",
+         name: "Lentil Sambusa",
       description:
         "Two flaky fried pastries with a gently spiced red-lentil and jalapeño filling. A fasting-day favorite. (2 pcs)",
       price: 80,
@@ -204,8 +204,8 @@ const RESTAURANT_DATA = {
     {
       id: "kategna",
       category: "starters",
+        am: "ካተኛ",
       name: "Kategna",
-      am: "ካተኛ",
       description:
         "Toasted injera brushed generously with berbere-spiced butter, rolled and cut to share. Simple, buttery, addictive.",
       price: 140,
@@ -237,17 +237,6 @@ const RESTAURANT_DATA = {
       popular: false, veg: false, spicy: true, available: true,
     },
     {
-      id: "kitfo",
-      category: "wot",
-      name: "Special Kitfo",
-      am: "ስፔሻል ክትፎ",
-      description:
-        "Finely minced prime beef seasoned with mitmita and warm niter kibbeh, paired with ayib cheese and gomen. Served raw, leb-leb or cooked.",
-      price: 480,
-      image: "assets/img/wot-kitfo.jpg",
-      popular: true, veg: false, spicy: true, available: true,
-    },
-    {
       id: "bozena-shiro",
       category: "wot",
       name: "Bozena Shiro",
@@ -260,7 +249,18 @@ const RESTAURANT_DATA = {
     },
 
     /* --- Tibs & Sauté (ጥብስ) --- */
-    {
+      {
+      id: "kitfo",
+      category: "wot",
+      name: "Special Kitfo",
+      am: "ስፔሻል ክትፎ",
+      description:
+        "Finely minced prime beef seasoned with mitmita and warm niter kibbeh, paired with ayib cheese and gomen. Served raw, leb-leb or cooked.",
+      price: 480,
+      image: "assets/img/wot-kitfo.jpg",
+      popular: true, veg: false, spicy: true, available: true,
+    },
+     {
       id: "derek-tibs",
       category: "tibs",
       name: "Derek Tibs",
