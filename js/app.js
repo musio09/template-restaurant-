@@ -283,7 +283,7 @@
         .map((r) => `<li><strong lang="${lang}">${esc(hoursLabel(r))}</strong><span>${esc(r.open)} – ${esc(r.close)}</span></li>`)
         .join("");
       const statusInline = st
-        ? `<p class="now-line">${esc(t("rightNow"))} <span class="status-inline ${st.open ? "open" : "closed"}">${esc(t(st.open ? "statusOpen" : "statusClosed"))}</span> · ${esc(t(st.key, { t: st.t }))}</p>`
+        ? `<p class="now-line">${esc(t("rightNow"))} <span class="status-inline ${st.open ? "open" : "closed"}">${esc(t(st.key, { t: st.t }))}</span></p>`
         : "";
       hrs.innerHTML = rows ? `<ul class="hours-list">${rows}</ul>${statusInline}` : statusInline;
     }
