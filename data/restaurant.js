@@ -256,7 +256,7 @@ const RESTAURANT_DATA = {
       am: "ስፔሻል ክትፎ",
       description:
         "Finely minced prime beef seasoned with mitmita and warm niter kibbeh, paired with ayib cheese and gomen. Served raw, leb-leb or cooked.",
-      price: 480,
+      price: 680,
       image: "assets/img/wot-kitfo.jpg",
       popular: true, veg: false, spicy: true, available: true,
     },
@@ -267,7 +267,7 @@ const RESTAURANT_DATA = {
       am: "ደረቅ ጥብስ",
       description:
         "Dry-sautéed beef cubes with caramelized onion, rosemary and jalapeño, served sizzling on hot clay.",
-      price: 390,
+      price: 590,
       image: "assets/img/tibs-derek.jpg",
       popular: false, veg: false, spicy: false, available: true,
     },
@@ -278,7 +278,7 @@ const RESTAURANT_DATA = {
       am: "አዋዜ ጥብስ",
       description:
         "Beef tibs tossed in glossy awaze chili-butter sauce with sweet peppers and fresh rosemary.",
-      price: 410,
+      price: 550,
       image: "assets/img/tibs-awaze.jpg",
       popular: false, veg: false, spicy: true, available: true,
     },
@@ -289,7 +289,7 @@ const RESTAURANT_DATA = {
       am: "ጭክና ጥብስ",
       description:
         "Premium beef tenderloin sautéed in garlic butter with rosemary — our chef's signature cut, soft as butter.",
-      price: 520,
+      price: 620,
       image: "assets/img/tibs-chikina.jpg",
       popular: true, veg: false, spicy: false, available: true,
     },
