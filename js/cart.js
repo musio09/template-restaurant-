@@ -114,20 +114,25 @@
      * Priced cart lines against the current menu.
      * Unknown item ids (menu changed since last visit) are silently dropped.
      * @param {Array} menuItems full menu array
-     * @returns {Array<{item:object, qty:number, lineTotal:number}>}
+     * @returns {Array<{item:object, qty:number, lineTotal:number|null}>} lineTotal is null when the item has no price yet
      */
     lines(menuItems) {
       const byId = new Map(menuItems.map((m) => [m.id, m]));
       const out = [];
       this.items.forEach((qty, id) => {
         const item = byId.get(id);
-        if (item) out.push({ item, qty, lineTotal: item.price * qty });
+        /* A missing/null price means "not priced yet": the line shows no
+           amount and contributes nothing to the total. */
+        if (item) {
+          const priced = item.price !== null && item.price !== undefined && item.price !== "";
+          out.push({ item, qty, lineTotal: priced ? Number(item.price) * qty : null });
+        }
       });
       return out;
     }
 
     subtotal(menuItems) {
-      return this.lines(menuItems).reduce((sum, l) => sum + l.lineTotal, 0);
+      return this.lines(menuItems).reduce((sum, l) => sum + (l.lineTotal || 0), 0);
     }
 
     serviceCharge(menuItems) {

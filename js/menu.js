@@ -69,9 +69,12 @@
         .replace(/'/g, "&#39;");
     },
 
-    /** Format a price according to data.currency. */
+    /** Format a price according to data.currency.
+        A price of null / undefined / "" means "not priced yet" — it is shown as
+        a dash so the item can go live before its price is decided. */
     formatPrice(amount, currency) {
       const c = currency || { symbol: "", position: "after", decimals: 0 };
+      if (amount === null || amount === undefined || amount === "") return "—";
       const n = Number(amount) || 0;
       const num = n.toLocaleString("en-US", {
         minimumFractionDigits: c.decimals || 0,
