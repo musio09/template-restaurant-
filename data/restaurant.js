@@ -314,6 +314,16 @@ const RESTAURANT_DATA = {
       image: "assets/img/breakfast-ful.jpg",
       popular: false, veg: true, spicy: false, available: true,
     },
+    {
+      /* PRICE TO SET: replace null with the price in Birr, e.g. price: 180 */
+      id: "enkulal", category: "breakfast",
+      name: "እንቁላል", nameEn: "Eggs · Enkulal",
+      description: "እንቁላል ከሽንኩርት፣ ቲማቲምና ቃሪያ ጋር የተጠበሰ",
+      descriptionEn: "Scrambled eggs with onion, tomato & green pepper",
+      price: null,
+      image: "assets/img/breakfast-enkulal.jpg",
+      popular: false, veg: false, spicy: false, available: true,
+    },
 
     /* --- Starters · ጀማሪ --- */
     {
@@ -372,6 +382,26 @@ const RESTAURANT_DATA = {
       image: "assets/img/wot-bozena-shiro.jpg",
       popular: false, veg: false, spicy: true, available: true,
     },
+    {
+      /* PRICE TO SET: replace null with the price in Birr, e.g. price: 520 */
+      id: "yebeg-kikil", category: "wot",
+      name: "የበግ ቅቅል", nameEn: "Yebeg Kikil · Lamb Kikil",
+      description: "አጥንት ያለው የበግ ሥጋ በለስላሳ ንጹህ መረቅ የበሰለ",
+      descriptionEn: "Bone-in lamb slowly simmered in a mild, aromatic broth",
+      price: null,
+      image: "assets/img/wot-yebeg-kikil.jpg",
+      popular: false, veg: false, spicy: false, available: true,
+    },
+    {
+      /* PRICE TO SET: replace null with the price in Birr, e.g. price: 950 */
+      id: "agelgil", category: "wot",
+      name: "አገልግል", nameEn: "Agelgil",
+      description: "የሥጋና የአትክልት ምግቦች በአንድ ትልቅ ከሰፊድ · ለጋራ",
+      descriptionEn: "Generous sharing platter of assorted meat & vegetable dishes on injera",
+      price: null,
+      image: "assets/img/wot-agelgil.jpg",
+      popular: true, veg: false, spicy: true, available: true,
+    },
 
     /* --- Tibs & Kitfo · ጥብስ & ክትፎ --- */
     {
@@ -409,6 +439,26 @@ const RESTAURANT_DATA = {
       price: 620,
       image: "assets/img/tibs-chikina.jpg",
       popular: true, veg: false, spicy: false, available: true,
+    },
+    {
+      /* PRICE TO SET: replace null with the price in Birr, e.g. price: 700 */
+      id: "kurt-siga", category: "tibs",
+      name: "ቁርጥ ሥጋ", nameEn: "Kurt · Kurt Siga",
+      description: "ትኩስ ጥሬ ሥጋ በቀጭኑ የተከተፈ · ከአዋዜ፣ ሰናፍጭና ሚጥሚጣ ጋር",
+      descriptionEn: "Thinly sliced fresh raw beef, served with awaze, senafich & mitmita",
+      price: null,
+      image: "assets/img/tibs-kurt-siga.jpg",
+      popular: false, veg: false, spicy: true, available: true,
+    },
+    {
+      /* PRICE TO SET: replace null with the price in Birr, e.g. price: 720 */
+      id: "gored-gored", category: "tibs",
+      name: "ጎረድ ጎረድ", nameEn: "Gored Gored",
+      description: "ኩብ ኩብ የተቆረጠ ጥሬ ሥጋ በሚጥሚጣና በአዋዜ",
+      descriptionEn: "Cubes of fresh raw beef tossed with mitmita & awaze",
+      price: null,
+      image: "assets/img/tibs-gored-gored.jpg",
+      popular: false, veg: false, spicy: true, available: true,
     },
 
     /* --- Fasting · የጾም --- */
@@ -457,6 +507,26 @@ const RESTAURANT_DATA = {
       descriptionEn: "Hot spiced black tea",
       price: 60,
       image: "assets/img/drink-tea.jpg",
+      popular: false, veg: true, spicy: false, available: true,
+    },
+    {
+      /* PRICE TO SET: replace null with the price in Birr, e.g. price: 30 */
+      id: "water", category: "drinks",
+      name: "ውሃ", nameEn: "Water",
+      description: "የታሸገ የመጠጥ ውሃ",
+      descriptionEn: "Bottled drinking water",
+      price: null,
+      image: "assets/img/drink-water.jpg",
+      popular: false, veg: true, spicy: false, available: true,
+    },
+    {
+      /* PRICE TO SET: replace null with the price in Birr, e.g. price: 50 */
+      id: "soft-drinks", category: "drinks",
+      name: "ለስላሳ መጠጦች", nameEn: "Soft Drinks",
+      description: "ኮካ፣ ስፕራይት፣ ፋንታ፣ ፔፕሲ · ቀዝቃዛ ጠርሙስ",
+      descriptionEn: "Coca-Cola, Sprite, Fanta, Pepsi · chilled bottle or can",
+      price: null,
+      image: "assets/img/drink-soft-drinks.jpg",
       popular: false, veg: true, spicy: false, available: true,
     },
   ],
