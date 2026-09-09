@@ -270,6 +270,7 @@ const RESTAURANT_DATA = {
     { id: "tibs",      name: "ጥብስ & ክትፎ",   nameEn: "Tibs & Kitfo",    icon: "🔥" },
     { id: "fasting",   name: "የጾም",          nameEn: "Fasting",         icon: "🌿" },
     { id: "drinks",    name: "ቡና & መጠጥ",    nameEn: "Coffee & Drinks", icon: "☕" },
+    { id: "soft-drinks", name: "ለስላሳ መጠጥ",  nameEn: "Soft Drinks",     icon: "🥤" },
   ],
 
   /* ---------- MENU ITEMS ----------
@@ -313,6 +314,16 @@ const RESTAURANT_DATA = {
       price: 190,
       image: "assets/img/breakfast-ful.jpg",
       popular: false, veg: true, spicy: false, available: true,
+    },
+    {
+      id: "enkulal", category: "breakfast",
+      name: "እንቁላል", nameEn: "Enkulal",
+      description: "የተቀላቀለ እንቁላል በሽንኩርት፣ በቲማቲምና በካሪያ",
+      descriptionEn: "Scrambled eggs with onion, tomato & green pepper",
+      price: 180, // ← EDIT: confirm the real price (ETB)
+      // TODO: add a real photo of scrambled enkulal → assets/img/breakfast-enkulal.jpg
+      image: "assets/img/photo-coming-soon.jpg",
+      popular: false, veg: false, spicy: false, available: true,
     },
 
     /* --- Starters · ጀማሪ --- */
@@ -372,6 +383,16 @@ const RESTAURANT_DATA = {
       image: "assets/img/wot-bozena-shiro.jpg",
       popular: false, veg: false, spicy: true, available: true,
     },
+    {
+      id: "yebeg-kikil", category: "wot",
+      name: "የበግ ቅቅል", nameEn: "Yebeg Kikil",
+      description: "የበግ ሥጋ በአጥንቱ በቀላል ሾርባ የተቀቀለ",
+      descriptionEn: "Bone-in lamb simmered in a mild aromatic broth",
+      price: 480, // ← EDIT: confirm the real price (ETB)
+      // TODO: add a real photo of lamb kikil in light broth → assets/img/wot-yebeg-kikil.jpg
+      image: "assets/img/photo-coming-soon.jpg",
+      popular: false, veg: false, spicy: false, available: true,
+    },
 
     /* --- Tibs & Kitfo · ጥብስ & ክትፎ --- */
     {
@@ -408,6 +429,34 @@ const RESTAURANT_DATA = {
       descriptionEn: "Shredded beef tibs with peppers & herbs",
       price: 620,
       image: "assets/img/tibs-chikina.jpg",
+      popular: true, veg: false, spicy: false, available: true,
+    },
+    {
+      id: "kurt-siga", category: "tibs",
+      name: "ቁርጥ", nameEn: "Kurt Siga",
+      description: "ጥሬ ሥጋ ከአዋዜ፣ ከሰናፍጭና ከሚጥሚጣ ጋር",
+      descriptionEn: "Fine-cut raw beef with awaze, mustard & mitmita",
+      price: 620, // ← EDIT: confirm the real price (ETB)
+      image: "assets/img/tibs-kurt.jpg",
+      popular: false, veg: false, spicy: true, available: true,
+    },
+    {
+      id: "gored-gored", category: "tibs",
+      name: "ጎረድ ጎረድ", nameEn: "Gored Gored",
+      description: "የጥሬ ሥጋ ኩብ ከሚጥሚጣና ከአዋዜ ጋር",
+      descriptionEn: "Raw beef cubes with mitmita & awaze",
+      price: 640, // ← EDIT: confirm the real price (ETB)
+      image: "assets/img/tibs-gored-gored.jpg",
+      popular: false, veg: false, spicy: true, available: true,
+    },
+    {
+      id: "agelgil-platter", category: "tibs",
+      name: "አገልግል", nameEn: "Agelgil Platter",
+      description: "ዶሮ ወጥ፣ ክትፎ፣ ጥብስና አትክልት በአንድ ቅርጫት · ለ4 ሰው",
+      descriptionEn: "Doro wot, kitfo, tibs & vegetables in one basket · serves 4",
+      price: 1450, // ← EDIT: confirm the real price (ETB)
+      // TODO: add a real photo of the house agelgil basket → assets/img/tibs-agelgil.jpg
+      image: "assets/img/photo-coming-soon.jpg",
       popular: true, veg: false, spicy: false, available: true,
     },
 
@@ -457,6 +506,35 @@ const RESTAURANT_DATA = {
       descriptionEn: "Hot spiced black tea",
       price: 60,
       image: "assets/img/drink-tea.jpg",
+      popular: false, veg: true, spicy: false, available: true,
+    },
+
+    /* --- Soft Drinks · ለስላሳ መጠጥ --- */
+    {
+      id: "bottled-water", category: "soft-drinks",
+      name: "ውሃ", nameEn: "Bottled Water",
+      description: "ንጹህ የመጠጥ ውሃ · ጠርሙስ",
+      descriptionEn: "Pure bottled drinking water",
+      price: 40, // ← EDIT: confirm the real price (ETB)
+      image: "assets/img/drink-water.jpg",
+      popular: false, veg: true, spicy: false, available: true,
+    },
+    {
+      id: "coca-cola", category: "soft-drinks",
+      name: "ኮካ ኮላ", nameEn: "Coca-Cola",
+      description: "ቀዝቃዛ ኮካ ኮላ · ጠርሙስ",
+      descriptionEn: "Chilled Coca-Cola · glass bottle",
+      price: 80, // ← EDIT: confirm the real price (ETB)
+      image: "assets/img/drink-coca-cola.jpg",
+      popular: false, veg: true, spicy: false, available: true,
+    },
+    {
+      id: "fanta", category: "soft-drinks",
+      name: "ፋንታ", nameEn: "Fanta",
+      description: "ቀዝቃዛ ፋንታ · ጠርሙስ",
+      descriptionEn: "Chilled Fanta · glass bottle",
+      price: 80, // ← EDIT: confirm the real price (ETB)
+      image: "assets/img/drink-fanta.jpg",
       popular: false, veg: true, spicy: false, available: true,
     },
   ],
